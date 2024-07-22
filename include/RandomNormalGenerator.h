@@ -13,13 +13,11 @@ private:
 	int Seed;
 
 public:
-	explicit RandomNormalGenerator(const int Size, const int Seed);
+	RandomNormalGenerator(const int Size, const int Seed);
 
-	void Resize(const int NewSize);
-
-	void Generate();
-
-	int Size() const;
+	size_t Size() const;
 
 	double Get(const int Index) const;
+
+	void Correlate(const RandomNormalGenerator Other, const T Rho);
 };

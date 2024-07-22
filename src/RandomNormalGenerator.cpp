@@ -5,17 +5,7 @@ RandomNormalGenerator<T>::RandomNormalGenerator(const int Size, const int Seed) 
 {
     Randoms.resize(Size);
     Generator.seed(Seed);
-}
 
-template <typename T>
-void RandomNormalGenerator<T>::Resize(const int NewSize)
-{
-    Randoms.resize(NewSize);
-}
-
-template <typename T>
-void RandomNormalGenerator<T>::Generate()
-{
     assert(Seed != 0);
     std::normal_distribution<T> NormalDistribution(0, 1);
 
@@ -26,17 +16,31 @@ void RandomNormalGenerator<T>::Generate()
 }
 
 template <typename T>
-int RandomNormalGenerator<T>::Size() const
+size_t RandomNormalGenerator<T>::Size() const
 {
     return Randoms.size();
 }
 
 template <typename T>
-double RandomNormalGenerator<T>::Get(const int Index) const
+double RandomNormalGenerator<T>::Get(const int Idx) const
 {
-    return Randoms.at(Index);
+    return Randoms.at(Idx);
 }
 
-// Forces creation of these classes for float and double type
+template<typename T>
+void RandomNormalGenerator<T>::Correlate(const RandomNormalGenerator Other, const T Rho)
+{
+    assert(Size() == Other.Size());
+    
+    T AltRho = sqrt(1 - pow(Rho, 2));
+
+    for (size_t Idx = 0; Idx < Size(); Idx++)
+    {
+        Randoms.at(Idx) = Rho * Other.Get(Idx) + AltRho * Randoms.at(Idx);
+    }
+}
+// test
+
+// forces creation of these classes for float and double type
 template class RandomNormalGenerator<float>;
 template class RandomNormalGenerator<double>;
