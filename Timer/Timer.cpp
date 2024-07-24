@@ -5,7 +5,7 @@ void TimerReport::Add(Timing NewTiming)
     Timings.push_back(NewTiming);
 }
 
-int TimerReport::Length()
+size_t TimerReport::Length()
 {
     return Timings.size();
 }

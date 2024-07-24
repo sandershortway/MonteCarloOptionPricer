@@ -1,3 +1,4 @@
+
 #pragma once
 
 #include <iostream>
@@ -18,7 +19,7 @@ class TimerReport {
 public:
     void Add(Timing NewTiming);
 
-    int Length();
+    size_t Length();
 
     void Rename(const std::string& NewName);
 

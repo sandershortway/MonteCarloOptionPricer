@@ -1,20 +1,21 @@
+# root CMakeLists.txt file
 cmake_minimum_required(VERSION 3.10)
 
+# specify project name and version
 project(MonteCarloOptionPricer VERSION 1.0)
 
-include_directories(include)
+# add subdirectories
+add_subdirectory(Models)
+add_subdirectory(RandomGenerator)
+add_subdirectory(Timer)
 
-set(SOURCES
-    src/Main.cpp
-    src/Models.cpp
-    src/RandomNormalGenerator.cpp
-    src/Timer.cpp
-)
+# add the main executable
+add_executable(MonteCarloOptionPricer Main.cpp)
 
-set(HEADERS
-    include/Models.h
-    include/RandomNormalGenerator.h
-    include/Timer.h
-)
+# set the startup project for Visual Studio
+set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT MonteCarloOptionPricer)
 
-add_executable(MonteCarloOptionPricing ${SOURCES} ${HEADERS})
+# link the libraries to the main executable
+target_link_libraries(MonteCarloOptionPricer PRIVATE Models)
+target_link_libraries(MonteCarloOptionPricer PRIVATE RandomGenerator)
+target_link_libraries(MonteCarloOptionPricer PRIVATE Timer)

@@ -13,11 +13,12 @@ private:
 	int Seed;
 
 public:
+	// TODOSK also add constructor which uses the current time as seed
 	RandomNormalGenerator(const int Size, const int Seed);
 
 	size_t Size() const;
 
 	double Get(const int Index) const;
 
-	void Correlate(const RandomNormalGenerator Other, const T Rho);
+	void Correlate(const RandomNormalGenerator& Other, const T Rho);
 };

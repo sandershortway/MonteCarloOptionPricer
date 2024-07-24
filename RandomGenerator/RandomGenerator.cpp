@@ -1,4 +1,4 @@
-#include "RandomNormalGenerator.h"
+#include "RandomGenerator.h"
 
 template <typename T>
 RandomNormalGenerator<T>::RandomNormalGenerator(const int Size, const int Seed) : Seed(Seed)
@@ -28,18 +28,17 @@ double RandomNormalGenerator<T>::Get(const int Idx) const
 }
 
 template<typename T>
-void RandomNormalGenerator<T>::Correlate(const RandomNormalGenerator Other, const T Rho)
+void RandomNormalGenerator<T>::Correlate(const RandomNormalGenerator& Other, const T Rho)
 {
     assert(Size() == Other.Size());
     
-    T AltRho = sqrt(1 - pow(Rho, 2));
+    double AltRho = sqrt(1 - pow(Rho, 2));
 
-    for (size_t Idx = 0; Idx < Size(); Idx++)
+    for (int Idx = 0; Idx < Size(); Idx++)
     {
         Randoms.at(Idx) = Rho * Other.Get(Idx) + AltRho * Randoms.at(Idx);
     }
 }
-// test
 
 // forces creation of these classes for float and double type
 template class RandomNormalGenerator<float>;
